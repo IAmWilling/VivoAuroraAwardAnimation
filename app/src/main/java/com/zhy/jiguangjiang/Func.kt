@@ -12,17 +12,18 @@ import androidx.constraintlayout.widget.ConstraintLayout
  */
 fun View.starAnimate(flag: Boolean) {
     if ((this is ConstraintLayout) && id == R.id.adapter_container) {
-        val cardView = findViewById<CardView>(R.id.cardview)
+        val cardView = findViewById<CardView>(R.id.cardview).apply { cardElevation = 10f }
         val centerLayout = findViewById<LinearLayout>(R.id.center_container)
-        val headerImage = findViewById<ImageView>(R.id.header_image)
+        val headerContainer = findViewById<CardView>(R.id.header_image_container).apply{cardElevation = 10f}
         val footerLayout = findViewById<View>(R.id.footer_container)
+
         cardView.animate().setDuration(300).scaleY(if (flag) 1f else 0.7f).setInterpolator(
             DecelerateInterpolator()
         )
             .start()
         centerLayout.animate().setDuration(300).translationY(if (flag) 0f else 100f)
             .setInterpolator(DecelerateInterpolator()).start()
-        headerImage.animate().setDuration(300).translationY(if (flag) 0f else 120f)
+        headerContainer.animate().setDuration(300).translationY(if (flag) 0f else 120f)
             .setInterpolator(DecelerateInterpolator()).start()
         footerLayout.animate().setDuration(200).alpha(if (flag) 1f else 0f)
             .translationY(if (flag) 0f else -100f)
